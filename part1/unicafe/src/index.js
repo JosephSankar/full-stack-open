@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const goodWeight = 1;
+const neutralWeight = 0;
+const badWeight = -1;
+
 const Button = (props) => (
     <button onClick={props.handleClick} >
         {props.text}
@@ -31,6 +35,10 @@ const App = () => {
         setBad(bad + 1);
     }
 
+    let total = good + neutral + bad;
+    let average = ((good * goodWeight) + (neutral * neutralWeight) + (bad * badWeight)) / total;
+    let positivePercentage = good / total * 100 + "%";
+
     return (
         <div>
             <h1>give feedback</h1>
@@ -42,6 +50,9 @@ const App = () => {
             <Statistic text="good" value={good} />
             <Statistic text="neutral" value={neutral} />
             <Statistic text="bad" value={bad} />
+            <Statistic text="all" value={total} />
+            <Statistic text="average" value={total > 0 ? average : "N/A"} />
+            <Statistic text="positive" value ={total > 0 ? positivePercentage : "N/A"} />
         </div>
     )
 }
