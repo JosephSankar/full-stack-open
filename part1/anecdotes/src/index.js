@@ -4,6 +4,14 @@ import ReactDOM from 'react-dom'
 const App = (props) => {
     const [selected, setSelected] = useState(0)
     const [voteArray, setVoteArray] = useState(Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf,0))
+    let highestVotedIndex = 0, highestVote = 0;
+
+    voteArray.forEach((voteValue, index) => {
+        if (voteValue > highestVote) {
+            highestVotedIndex = index;
+            highestVote = voteValue;
+        }
+    });
 
     const handleNextAnecdoteClick = () => {
         let randomIndex = Math.floor(Math.random() * (anecdotes.length - 1));
@@ -18,6 +26,7 @@ const App = (props) => {
 
     return (
         <>
+            <h1>Anecdote of the day</h1>
             <div>
                 {props.anecdotes[selected]}
             </div>
@@ -30,6 +39,13 @@ const App = (props) => {
             <button onClick={handleNextAnecdoteClick}>
                 next anecdote
             </button>
+            <h1>Anecdote with the most votes</h1>
+            <div>
+                {props.anecdotes[highestVotedIndex]}
+            </div>
+            <div>
+                has {voteArray[highestVotedIndex]} votes
+            </div>
         </>
     )
 }
