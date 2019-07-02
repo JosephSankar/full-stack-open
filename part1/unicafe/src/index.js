@@ -39,22 +39,36 @@ const App = () => {
     let average = ((good * goodWeight) + (neutral * neutralWeight) + (bad * badWeight)) / total;
     let positivePercentage = good / total * 100 + "%";
 
-    return (
-        <div>
-            <h1>give feedback</h1>
-            <Button handleClick={handleGoodClick} text="good" />
-            <Button handleClick={handleNeutralClick} text="neutral" />
-            <Button handleClick={handleBadClick} text="bad" />
+    if (total > 0) {
+        return (
+            <div>
+                <h1>give feedback</h1>
+                <Button handleClick={handleGoodClick} text="good" />
+                <Button handleClick={handleNeutralClick} text="neutral" />
+                <Button handleClick={handleBadClick} text="bad" />
 
-            <h1>statistics</h1>
-            <Statistic text="good" value={good} />
-            <Statistic text="neutral" value={neutral} />
-            <Statistic text="bad" value={bad} />
-            <Statistic text="all" value={total} />
-            <Statistic text="average" value={total > 0 ? average : "N/A"} />
-            <Statistic text="positive" value ={total > 0 ? positivePercentage : "N/A"} />
-        </div>
-    )
+                <h1>statistics</h1>
+                <Statistic text="good" value={good} />
+                <Statistic text="neutral" value={neutral} />
+                <Statistic text="bad" value={bad} />
+                <Statistic text="all" value={total} />
+                <Statistic text="average" value={total > 0 ? average : "N/A"} />
+                <Statistic text="positive" value ={total > 0 ? positivePercentage : "N/A"} />
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <h1>give feedback</h1>
+                <Button handleClick={handleGoodClick} text="good" />
+                <Button handleClick={handleNeutralClick} text="neutral" />
+                <Button handleClick={handleBadClick} text="bad" />
+
+                <h1>statistics</h1>
+                <p>No feedback given</p>
+            </div>
+        )
+    }
 }
 
 ReactDOM.render(<App />,
